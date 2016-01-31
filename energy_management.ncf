@@ -19,7 +19,7 @@ node energy_management {
 			signals {
 				battery_voltage {
 					size       = 10;
-					init_value = 0; // TODO this is most likely not the best initial value
+					init_value = 0; // TODO this is most likely not the best initial value for the battery voltage.
 					offset 	   = 0;
 					battery_voltage_encoding;
 				}
@@ -44,6 +44,8 @@ node energy_management {
 		}
 	}
 	encoding {
+		// TODO the numbers that I plugged in here I just made up because I do not know what the
+		// actual max current and max voltage will be.
 		battery_voltage_encoding  { physical_value, 0,1023, 0.0733,0,"The battery voltage [0,75]Volts."; }
 		usage_current_encoding    { physical_value, 0,1023, 0.0733,0,"The usage current [0,75]Amps.";    }
 		charging_current_encoding { physical_value, 0,1023, 0.0733,0,"The charging current [0,75]Amps."; }
