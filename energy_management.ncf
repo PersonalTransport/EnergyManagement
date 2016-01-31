@@ -33,6 +33,7 @@ node energy_management {
 					size = 10;
 					init_value = 0;
 					offset = 20;
+					charging_current_encoding;
 				}
 				error_bit {
 					size = 1; 
