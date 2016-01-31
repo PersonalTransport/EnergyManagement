@@ -30,3 +30,21 @@
 
 # Debug files
 *.dSYM/
+
+# Generated
+gen/
+*-gen/
+generated/
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# MPLABX
+*.X/nbproject/private/
+/EnergyManagement.X/dist/default/
+/EnergyManagement.X/build/default/
