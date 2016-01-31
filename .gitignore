@@ -48,3 +48,8 @@ install_manifest.txt
 *.X/nbproject/private/
 /EnergyManagement.X/dist/default/
 /EnergyManagement.X/build/default/
+/bin/
+
+# Eclipse
+.classpath
+.project
