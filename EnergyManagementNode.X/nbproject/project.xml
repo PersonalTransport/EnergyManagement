@@ -4,11 +4,11 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>EnergyManagementNode</name>
-            <creation-uuid>35fb8c0c-1fb7-44ad-b089-8ef3b061febd</creation-uuid>
+            <creation-uuid>b326dd9d-08c7-4c61-a203-ffa7d2c6e322</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>

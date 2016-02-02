@@ -35,12 +35,13 @@
 gen/
 *-gen/
 generated/
+slaves/
 
 # CMake
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
-Makefile
+#Makefile
 cmake_install.cmake
 install_manifest.txt
 
@@ -53,3 +54,9 @@ install_manifest.txt
 # Eclipse
 .classpath
 .project
+
+# IntelliJ
+.idea/
+*.iml
+/EvMaster.X/build/default/
+/EvMaster.X/dist/default/

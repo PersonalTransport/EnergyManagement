@@ -32,7 +32,7 @@
 #pragma config ICS = PGx2               // Emulator Pin Placement Select bits (Emulator functions are shared with PGEC1/PGED1)
 #pragma config GWRP = OFF               // General Segment Write Protect (Writes to program memory are allowed)
 #pragma config GCP = OFF                // General Segment Code Protect (Code protection is disabled)
-#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is enabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
 
 #include <xc.h>
 #include <energy_management.h>
@@ -55,4 +55,28 @@ int main() {
     }
 
     return -1;
+}
+
+void __attribute__((interrupt,no_auto_psv)) _U1TXInterrupt() {
+    if(IFS0bits.U1TXIF) {
+        // Clear TX interrupt flag.
+        IFS0bits.U1TXIF = 0;
+
+        l_ifc_tx_UART1();
+
+        if(U1STAbits.FERR)
+            U1STAbits.FERR = 0;
+    }
+}
+
+void __attribute__((interrupt,no_auto_psv)) _U1RXInterrupt() {
+    if(IFS0bits.U1RXIF) {
+        // Clear RX interrupt flag.
+        IFS0bits.U1RXIF = 0;
+
+        l_ifc_rx_UART1();
+
+        if(U1STAbits.FERR)
+            U1STAbits.FERR = 0;
+    }
 }

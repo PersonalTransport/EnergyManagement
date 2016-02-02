@@ -10,7 +10,7 @@ node energy_management {
 		sends_wake_up_signal = "yes";
 	}
 	diagnostic {
-		NAD = 0x01 to 0x7D;
+		NAD = 0x02;
 		diagnostic_class = 1;
 	}
 	frames {
@@ -35,9 +35,9 @@ node energy_management {
 					offset = 20;
 					charging_current_encoding;
 				}
-				error_bit {
-					size = 1; 
-					init_value = 0; 
+				energy_management_error_bit {
+					size = 1;
+					init_value = 0;
 					offset = 30;
 				}
 			}
@@ -51,6 +51,6 @@ node energy_management {
 		charging_current_encoding { physical_value, 0,1023, 0.0733,0,"The charging current [0,75]Amps."; }
 	}
 	status_management {
-		response_error = error_bit;
+		response_error = energy_management_error_bit;
 	}
 }
