@@ -60,3 +60,5 @@ install_manifest.txt
 *.iml
 /EvMaster.X/build/default/
 /EvMaster.X/dist/default/
+/EnergyManagementNode.X/build/default/
+/EnergyManagementNode.X/dist/default/

@@ -86,14 +86,14 @@ ${OBJECTDIR}/_ext/1360925313/energy_management.o: ../gen/energy_management.c  nb
 	@${MKDIR} "${OBJECTDIR}/_ext/1360925313" 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360925313/energy_management.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
@@ -101,14 +101,14 @@ ${OBJECTDIR}/_ext/1360925313/energy_management.o: ../gen/energy_management.c  nb
 	@${MKDIR} "${OBJECTDIR}/_ext/1360925313" 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360925313/energy_management.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
