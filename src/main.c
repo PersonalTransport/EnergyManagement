@@ -41,6 +41,8 @@ struct l_irqmask l_sys_irq_disable() {
     IEC0bits.U1RXIE = 0;
     IEC0bits.U1TXIE = 0;
     IEC0bits.IC1IE  = 0;
+    IFS0bits.U1TXIF = 0;
+    IFS0bits.U1RXIF = 0;
     struct l_irqmask mask = {IPC2bits.U1RXIP,IPC3bits.U1TXIP,IPC0bits.IC1IP};
     return mask;
 }
@@ -74,12 +76,10 @@ int main() {
 
     struct l_irqmask irqmask = {4,4,7};
     l_sys_irq_restore(irqmask);
-    
-    l_u16_wr_battery_voltage(0x0001);
-    l_u16_wr_usage_current(0x0002);
-    
-    
-    
+
+    l_u16_wr_battery_voltage(1023);
+    l_u16_wr_usage_current(512);
+
     while(1) {
         main_task();
     }

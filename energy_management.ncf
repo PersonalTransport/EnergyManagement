@@ -15,7 +15,7 @@ node energy_management {
 	}
 	frames {
 		publish energy_status_frame {
-			length = 6;
+			length = 4;
 			signals {
 				battery_voltage {
 					size       = 10;
