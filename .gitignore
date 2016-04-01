@@ -47,8 +47,8 @@ install_manifest.txt
 
 # MPLABX
 *.X/nbproject/private/
-/EnergyManagement.X/dist/default/
-/EnergyManagement.X/build/default/
+/*.X/dist/default/
+/*.X/build/default/
 /bin/
 
 # Eclipse
@@ -58,7 +58,7 @@ install_manifest.txt
 # IntelliJ
 .idea/
 *.iml
-/EvMaster.X/build/default/
-/EvMaster.X/dist/default/
-/EnergyManagementNode.X/build/default/
-/EnergyManagementNode.X/dist/default/
+/*.X/build/default/
+/*.X/dist/default/
+/*.X/build/default/
+/*.X/dist/default/

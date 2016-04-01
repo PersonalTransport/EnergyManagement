@@ -66,6 +66,21 @@ void main_task() {
 }
 
 int main() {
+    TRISAbits.TRISA0 = 1; // AN0 input
+    AD1PCFGbits.PCFG0 = 0; // AN0 analog
+    
+    AD1CON2bits.VCFG = 0; // Vr+ = AVdd and Vr- = AVss
+    AD1CON3bits.ADCS = 0; // TCY
+    AD1CON1bits.SSRC = 7; // Internal counter ends sampling and starts conversion (auto-convert)
+    AD1CON3bits.SAMC = 1; // 1 TAD
+    AD1CON1bits.FORM = 0; // Integer (0000 00dd dddd dddd)
+    AD1CON2bits.SMPI = 0; // Interrupts are at the completion of conversion for each sample/convert sequence
+    AD1CON1bits.ADON = 1; // Turn on the A/D
+    
+    IFS0bits.AD1IF = 0; // Clear the A/D interrupt flag
+    IPC3bits.AD1IP = 3; // Set the interrupt A/D priority to 3 
+    IEC0bits.AD1IE = 1; // Enable the A/D interrupt
+    
     // Initialize the LIN interface
     if(l_sys_init())
         return -1;
@@ -85,6 +100,11 @@ int main() {
     }
 
     return -1;
+}
+
+void __attribute__((interrupt,no_auto_psv)) _ADC1Interrupt() {
+    IFS0bits.AD1IF = 0;
+    l_u16_wr_battery_voltage(ADC1BUF0); // Save the battery voltage and schedule it for LIN transmission.
 }
 
 void __attribute__((interrupt,no_auto_psv)) _U1TXInterrupt() {

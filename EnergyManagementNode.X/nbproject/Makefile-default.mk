@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../gen/energy_management.c ../src/main.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/main.c ../gen/energy_management.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360925313/energy_management.o ${OBJECTDIR}/_ext/1360937237/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360925313/energy_management.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360925313/energy_management.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360925313/energy_management.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360925313/energy_management.o ${OBJECTDIR}/_ext/1360937237/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360925313/energy_management.o
 
 # Source Files
-SOURCEFILES=../gen/energy_management.c ../src/main.c
+SOURCEFILES=../src/main.c ../gen/energy_management.c
 
 
 CFLAGS=
@@ -71,7 +71,20 @@ LDLIBSOPTIONS=
 # fixDeps replaces a bunch of sed/cat/printf statements that slow down the build
 FIXDEPS=fixDeps
 
-.build-conf:  ${BUILD_SUBPROJECTS}
+# The following macros may be used in the pre and post step lines
+Device=PIC24FJ32GB002
+ProjectDir=/home/aaron/Desktop/cluster/EnergyManagementNode/EnergyManagementNode.X
+ConfName=default
+ImagePath=dist/default/${IMAGE_TYPE}/EnergyManagementNode.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+ImageDir=dist/default/${IMAGE_TYPE}
+ImageName=EnergyManagementNode.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+IsDebug="true"
+else
+IsDebug="false"
+endif
+
+.build-conf:  .pre ${BUILD_SUBPROJECTS}
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
@@ -82,13 +95,6 @@ MP_LINKER_FILE_OPTION=,--script=p24FJ32GB002.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1360925313/energy_management.o: ../gen/energy_management.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1360925313" 
-	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1360925313/energy_management.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
@@ -96,20 +102,27 @@ ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CON
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-else
 ${OBJECTDIR}/_ext/1360925313/energy_management.o: ../gen/energy_management.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360925313" 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360925313/energy_management.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+else
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/main.c  -o ${OBJECTDIR}/_ext/1360937237/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/1360925313/energy_management.o: ../gen/energy_management.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1360925313" 
+	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360925313/energy_management.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../gen/energy_management.c  -o ${OBJECTDIR}/_ext/1360925313/energy_management.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360925313/energy_management.o.d"        -g -omf=elf -legacy-libc  -I"../gen" -I"../include" -O0 -msmart-io=1 -Wall -msfr-warn=off   -std=c99
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360925313/energy_management.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
@@ -140,6 +153,11 @@ dist/${CND_CONF}/${IMAGE_TYPE}/EnergyManagementNode.X.${IMAGE_TYPE}.${OUTPUT_SUF
 	
 endif
 
+.pre:
+	@echo "--------------------------------------"
+	@echo "User defined pre-build step: [LIN -t ${Device} -i uart1 slave -o ../gen ../energy_management.ncf]"
+	@LIN -t ${Device} -i uart1 slave -o ../gen ../energy_management.ncf
+	@echo "--------------------------------------"
 
 # Subprojects
 .build-subprojects:
