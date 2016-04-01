@@ -45,10 +45,6 @@ CMakeScripts
 cmake_install.cmake
 install_manifest.txt
 
-# MPLABX
-*.X/nbproject/private/
-/*.X/dist/default/
-/*.X/build/default/
 /bin/
 
 # Eclipse
@@ -58,7 +54,8 @@ install_manifest.txt
 # IntelliJ
 .idea/
 *.iml
-/*.X/build/default/
-/*.X/dist/default/
-/*.X/build/default/
-/*.X/dist/default/
+
+/*.X/*
+!/*.X/Makefile
+!/*.X/nbproject/configurations.xml
+!/*.X/nbproject/project.xml
