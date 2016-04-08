@@ -55,7 +55,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
-        <makeCustomizationPreStep>LIN -t ${Device} -i uart1 slave -o ../gen ../energy_management.ncf</makeCustomizationPreStep>
+        <makeCustomizationPreStep>LIN -t ${Device} -i uart1 -o ../gen ../energy_management.ncf</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
@@ -176,7 +176,7 @@
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="true"/>
-        <property key="oXC16glb-macros" value=""/>
+        <property key="oXC16glb-macros" value="FCY=2000000"/>
         <property key="output-file-format" value="elf"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>

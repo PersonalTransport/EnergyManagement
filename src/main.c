@@ -37,7 +37,7 @@
 #include <xc.h>
 #include <energy_management.h>
 
-inline void main_task()
+void main_task()
 {
     // Put the node specific function here!
 }
