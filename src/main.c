@@ -14,15 +14,15 @@
 #pragma config WPEND = WPENDMEM // Segment Write Protection End Page Select (Write Protect from WPFP to the last page of memory)
 
 // CONFIG2
-#pragma config POSCMOD = HS // Primary Oscillator Select (HS Oscillator mode selected)
+#pragma config POSCMOD = NONE // Primary Oscillator Select (Primary Oscillator disabled)
 #pragma config I2C1SEL = PRI // I2C1 Pin Select bit (Use default SCL1/SDA1 pins for I2C1 )
 #pragma config IOL1WAY = OFF // IOLOCK One-Way Set Enable (The IOLOCK bit can be set and cleared using the unlock sequence)
 #pragma config OSCIOFNC = ON // OSCO Pin Configuration (OSCO pin functions as port I/O (RA3))
 #pragma config FCKSM = CSDCMD // Clock Switching and Fail-Safe Clock Monitor (Sw Disabled, Mon Disabled)
-#pragma config FNOSC = PRIPLL // Initial Oscillator Select (Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL))
-#pragma config PLL96MHZ = ON // 96MHz PLL Startup Select (96 MHz PLL Startup is enabled automatically on start-up)
-#pragma config PLLDIV = DIV3 // USB 96 MHz PLL Prescaler Select (Oscillator input divided by 3 (12 MHz input))
-#pragma config IESO = ON // Internal External Switchover (IESO mode (Two-Speed Start-up) enabled)
+#pragma config FNOSC = FRC // Initial Oscillator Select (Fast RC Oscillator (FRC))
+#pragma config PLL96MHZ = OFF // 96MHz PLL Startup Select (96 MHz PLL Startup is enabled by user in software( controlled with the PLLEN bit))
+#pragma config PLLDIV = NODIV // USB 96 MHz PLL Prescaler Select (Oscillator input used directly (4 MHz input))
+#pragma config IESO = OFF // Internal External Switchover (IESO mode (Two-Speed Start-up) disabled)
 
 // CONFIG1
 #pragma config WDTPS = PS32768 // Watchdog Timer Postscaler (1:32,768)
