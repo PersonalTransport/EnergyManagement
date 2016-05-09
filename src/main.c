@@ -34,17 +34,21 @@
 #pragma config GCP = OFF // General Segment Code Protect (Code protection is disabled)
 #pragma config JTAGEN = OFF // JTAG Port Enable (JTAG port is disabled)
 
-#include <xc.h>
 #include <libpic30.h>
 #include <energy_management.h>
+#include <xc.h>
+#include <stdio.h>
 
-void main_task()
-{
-    // Put the node specific function here!
-}
+void shiftOut(char, char);
+void initLCD(void);
+void writeChar(unsigned char);
+void writeString(char *);
+void setCursor(unsigned char, unsigned char);
+void initADC(void);
+void resetADC(void);
+void writeNum(int);
 
-int main()
-{
+int main() {
     // Initialize the LIN interface
     if (l_sys_init())
         return -1;
@@ -53,54 +57,178 @@ int main()
     if (l_ifc_init_UART1())
         return -1;
 
+    // Set UART TX to interrupt level 6
+    // Set UART RX to interrupt level 6
     struct l_irqmask irqmask = { 6, 6 };
     l_sys_irq_restore(irqmask);
+    
+    __delay_ms(100);
+    
+    //setting output pins for LCD
+    TRISAbits.TRISA4 = 0;
+    TRISAbits.TRISA3 = 0;
+    TRISAbits.TRISA2 = 0;
+    
+    //setting input for ADC Vrefs
+    TRISAbits.TRISA0 = 1;
+    TRISAbits.TRISA1 = 1;
+    
+    //setting input for analog channel
+    TRISBbits.TRISB2 = 1;
 
-    l_bool configuration_ok = false;
-    l_u16 configuration_timeout = 1000;
-    do {
-        if (l_ifc_read_status_UART1() & (1 << 6)) {
-            configuration_ok = true;
-            break;
-        }
-        __delay_ms(5);
-        configuration_timeout--;
-    } while (configuration_timeout || !configuration_ok);
-
-    if (!configuration_ok) {
-        // Master did not configure this node.
-        return -1;
+    initLCD();
+    
+    initADC();
+    resetADC();
+    
+    writeString("Current:");
+   
+    AD1CON1bits.ADON = 0b1; //Turning ADC on
+    
+    
+    while(1) {
     }
-
-    // TODO move this because RA0 is used for VBATRATIO
-    TRISAbits.TRISA0 = 1; // AN0 input
-    AD1PCFGbits.PCFG0 = 0; // AN0 analog
-
-    AD1CON2bits.VCFG = 0; // Vr+ = AVdd and Vr- = AVss
-    AD1CON3bits.ADCS = 0; // TCY
-    AD1CON1bits.SSRC = 7; // Internal counter ends sampling and starts conversion (auto-convert)
-    AD1CON3bits.SAMC = 1; // 1 TAD
-    AD1CON1bits.FORM = 0; // Integer (0000 00dd dddd dddd)
-    AD1CON2bits.SMPI = 0; // Interrupts are at the completion of conversion for each sample/convert sequence
-    AD1CON1bits.ADON = 1; // Turn on the A/D
-
-    IFS0bits.AD1IF = 0; // Clear the A/D interrupt flag
-    IPC3bits.AD1IP = 3; // Set the interrupt A/D priority to 3
-    IEC0bits.AD1IE = 1; // Enable the A/D interrupt
-
-    while (1) {
-        main_task();
-    }
-
-    return -1;
+    
+    return 0;
 }
 
-void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt()
-{
-    if (IFS0bits.AD1IF) {
-        IFS0bits.AD1IF = 0;
-        l_u16_wr_battery_voltage(ADC1BUF0); // Save the battery voltage and schedule it for LIN transmission.
+char buf[64];
+void __attribute__((__interrupt__)) _ADC1Interrupt(void) {
+    setCursor(9,1);
+
+    l_u16 x = ADC1BUF0;
+    writeNum(x);
+    
+    if(l_flg_tst_usage_current()) {
+        l_flg_clr_usage_current();
+        l_u16_wr_usage_current(x);
     }
+    
+    resetADC();//reset interrupt flag
+}
+
+void shiftOut(char highByte, char lowByte){
+    char temp;
+    char i;
+    for(i = 0; i < 8; i++){
+        temp = lowByte;
+        LATAbits.LATA4 = lowByte >> 7;
+        lowByte = temp << 1;
+        
+        LATAbits.LATA3 = 0b1; //triggering clock pin
+        LATAbits.LATA3 = 0b0;
+    }
+    for(i = 0; i < 8; i++){
+        temp = highByte;
+        LATAbits.LATA4 = highByte >> 7;
+        highByte = temp << 1;
+        
+        LATAbits.LATA3 = 0b1; //triggering clock pin
+        LATAbits.LATA3 = 0b0;
+    }
+    
+    LATAbits.LATA2 = 0b1; //triggering latch pin
+    LATAbits.LATA2 = 0b0;
+}
+
+void setCursor(unsigned char x, unsigned char y){
+    int n;
+    if(y == 2){
+        x+=192;
+        shiftOut(x, 0x01);
+        for(n = 0; n < 1000; n++);
+        shiftOut(0x00, 0x00);
+    }else{
+        x+=128;
+        shiftOut(x, 0x01);
+        for(n = 0; n < 1000; n++);
+        shiftOut(0x00, 0x00);
+    }
+}
+
+void writeString(char * string){
+    int i = 0;
+    while(string[i] != '\0'){
+        writeChar(string[i]);
+        i++;
+    }
+}
+
+void writeChar(unsigned char c){
+    int n;
+    shiftOut(c, 0b00000011);
+    for(n = 0; n < 1000; n++);
+    shiftOut(0x00, 0x00);
+}
+
+void initLCD(void){
+    shiftOut(0, 0);
+    
+    shiftOut(0b00001111, 0b00000001); //turn LCD on; cursor on; cursor blink on
+    shiftOut(0b00001111, 0b00000000);
+    
+    shiftOut(0b00111100, 0b00000001); //8-bit bus mode; 2-line display mode; 5x11 dots format
+    shiftOut(0b00111100, 0);
+    
+    shiftOut(0b00000001, 0b00000001); //clear display
+    shiftOut(0b00000001, 0);
+    
+    shiftOut(0b00000010, 0b00000001); //return cursor home
+    shiftOut(0b00000010, 0);
+}
+
+void writeNum(int num){
+    num *= 100;
+    
+    char hun = (num / 10000);
+    writeChar(hun + 48);
+    num -= 10000 * hun;
+    
+    char ten = (num / 1000);
+    writeChar(ten + 48);
+    num -= 1000 * ten;
+    
+    char fir = (num / 100);
+    writeChar(fir + 48);
+    num -= 100 * fir;
+    
+    writeChar('.');
+    
+    char tenths = (num / 10);
+    writeChar(tenths+48);
+    num -= 10 * tenths;
+    
+    char thous = (num / 1);
+    writeChar(thous+48);
+}
+
+void initADC(void){
+    AD1CON1bits.FORM = 0b00; //Data output format as 0000 00dd dddd dddd
+    AD1CON1bits.SSRC = 0b111; //Internal counter ends sampling and starts conversion (auto-convert)
+    AD1CON1bits.ASAM = 0b1; //Sampling begins immediately after last conversion completes; SAMP bit is auto-set
+    
+    AD1CON2bits.VCFG = 0b000; //Voltage Reference as VDD and VSS
+    AD1CON2bits.CSCNA = 0b0; //Does not scan inputs
+    AD1CON2bits.SMPI = 0b111; //Interrupts at the completion of conversion for each 16th sample/convert sequence
+    AD1CON2bits.BUFM = 0b0; //Buffer configured as one 16-word buffer(ADC1BUFn<15:0>)
+    AD1CON2bits.ALTS = 0b0; //Always uses MUX A input multiplexer settings
+    
+    AD1CON3bits.ADRC = 0b1; //A/D internal RC clock
+    AD1CON3bits.SAMC = 0b11111; //31 ? TAD
+    AD1CON3bits.ADCS = 0b00111111; //64 ? TCY
+    
+    IPC3bits.AD1IP = 0b011; //Interrupt is Priority 3 (highest priority interrupt)
+    
+    AD1CHSbits.CH0SA = 4; //Channel 0 positive input is AN4
+    
+    AD1PCFGbits.PCFG4 = 0; //AN4-Pin is configured in Analog mode; I/O port read is disabled, A/D samples pin voltage
+    
+    AD1CON1bits.SAMP = 0b1; //Start sampling
+}
+
+void resetADC(void){
+    IFS0bits.AD1IF = 0b0; //clearing ADC interrupt flag
+    IEC0bits.AD1IE = 0b1; //enabling ADC interrupt
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt()
