@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>../gen/energy_management.h</itemPath>
+      <itemPath>gen/energy_management.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -13,19 +13,19 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../src/main.c</itemPath>
-      <itemPath>../gen/energy_management.c</itemPath>
+      <itemPath>src/main.c</itemPath>
+      <itemPath>gen/energy_management.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>../energy_management.ncf</itemPath>
+      <itemPath>energy_management.ncf</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../gen</Elem>
-    <Elem>../src</Elem>
+    <Elem>gen</Elem>
+    <Elem>src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -55,7 +55,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
-        <makeCustomizationPreStep>LIN -t ${Device} -i uart1 -o ../gen ../energy_management.ncf</makeCustomizationPreStep>
+        <makeCustomizationPreStep>LIN -t ${Device} -i uart1 -o gen energy_management.ncf</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
@@ -171,7 +171,7 @@
         <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
-        <property key="common-include-directories" value="../gen;../include"/>
+        <property key="common-include-directories" value="gen;include"/>
         <property key="dual-boot-partition" value="0"/>
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>

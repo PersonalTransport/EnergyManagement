@@ -1,61 +1,7 @@
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-
-# Generated
-gen/
-*-gen/
-generated/
-slaves/
-
-# CMake
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-#Makefile
-cmake_install.cmake
-install_manifest.txt
-
-/bin/
-
-# Eclipse
-.classpath
-.project
-
-# IntelliJ
-.idea/
-*.iml
-
-/*.X/*
-!/*.X/Makefile
-!/*.X/nbproject/configurations.xml
-!/*.X/nbproject/project.xml
+build/
+debug/
+dist/
+*gen*/
+nbproject/*
+!nbproject/configurations.xml
+!nbproject/project.xml
